@@ -1,15 +1,35 @@
 import { useState } from 'react';
+import { PessoaJuridica } from './interfaces/pessoaJuridica';
 import './styles/global.css'
 
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { createUserFormSchema } from './utils/validacoes';
+
+/**
+ * TODO
+ *
+ * [ ] Validação / transformação
+ * [ ] Field arrays
+ * [ ] upload de arquivos
+ * [ ] composition pattern
+ */
+
 
 function App() {
   const [ output, setOutput ] = useState('');
-  const { register, handleSubmit } = useForm() // registra os input
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<PessoaJuridica>({
+    // registra os input
+     resolver: zodResolver(createUserFormSchema),
+  })
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function createPessoaJuridica(data: any) {
+  console.log(errors)
+
+  function createPessoaJuridica(data: PessoaJuridica) {
     setOutput(JSON.stringify(data, null, 2));
   }
 
@@ -23,6 +43,7 @@ function App() {
             type="text"
             className='border border-zinc-800 shadow-sm rounded h-10 px-3 bg-zinc-900 text-white'
             {...register('nm_fantasia')}/>
+            {errors.nm_fantasia && <span>{errors.nm_fantasia.message}</span>}
         </div>
 
         <div className='flex flex-col gap-1'>
@@ -31,6 +52,7 @@ function App() {
             type="text"
             className='border border-zinc-800 shadow-sm rounded h-10 px-3 bg-zinc-900 text-white'
             {...register('rz_social')} />
+            {errors.rz_social && <span>{errors.rz_social.message}</span>}
         </div>
 
         <div className='flex flex-col gap-1'>
@@ -41,6 +63,7 @@ function App() {
             className='border border-zinc-800 shadow-sm rounded h-10 px-3 bg-zinc-900 text-white'
             {...register('cnpj')}
             />
+            {errors.cnpj && <span>{errors.cnpj.message}</span>}
         </div>
 
         <div className='flex flex-col gap-1'>
@@ -48,7 +71,8 @@ function App() {
           <input
             type="text"
             className='border border-zinc-800 shadow-sm rounded h-10 px-3 bg-zinc-900 text-white'
-            {...register('cnpj')}/>
+            {...register('ie')}/>
+            {errors.ie && <span>{errors.ie.message}</span>}
         </div>
 
         <div className='flex flex-col gap-1'>
@@ -57,6 +81,7 @@ function App() {
             type="email"
             className='border border-zinc-800 shadow-sm rounded h-10 px-3 bg-zinc-900 text-white'
             {...register('email')}/>
+            {errors.email && <span>{errors.email.message}</span>}
           </div>
 
         <div className='flex flex-col gap-1'>
@@ -65,6 +90,7 @@ function App() {
             type="text"
             className='border border-zinc-800 shadow-sm rounded h-10 px-3 bg-zinc-900 text-white'
             {...register('contato')}/>
+            {errors.contato && <span>{errors.contato.message}</span>}
           </div>
 
         <div className='flex flex-col gap-1'>
