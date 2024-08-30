@@ -5,6 +5,7 @@ import './styles/global.css'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createUserFormSchema } from './utils/validacoes';
+import { Styles } from './styles/formStyles';
 
 /**
  * TODO
@@ -18,6 +19,7 @@ import { createUserFormSchema } from './utils/validacoes';
 
 function App() {
   const [ output, setOutput ] = useState('');
+
   const {
     register,
     handleSubmit,
@@ -34,77 +36,85 @@ function App() {
   }
 
   return (
-    <main className='h-screen bg-zinc-950 text-zinc-300 flex flex-col gap-10 items-center justify-center'>
-      <form onSubmit={handleSubmit(createPessoaJuridica)} className='flex flex-col gap-4 w-full max-w-xs'>
+    <main className={Styles.mainDarkStyle()}>
+      <form onSubmit={handleSubmit(createPessoaJuridica)} className={Styles.formDarkStyle()}>
 
-        <div className='flex flex-col gap-1'>
+        <div className={Styles.divDarkStyles()}>
           <label htmlFor="">Nome fantasia</label>
           <input
             type="text"
-            className='border border-zinc-800 shadow-sm rounded h-10 px-3 bg-zinc-900 text-white'
+            className={Styles.inputDarkStyles()}
             {...register('nm_fantasia')}/>
             {errors.nm_fantasia && <span>{errors.nm_fantasia.message}</span>}
         </div>
 
-        <div className='flex flex-col gap-1'>
+        <div className={Styles.divDarkStyles()}>
           <label htmlFor="">Razão Social</label>
           <input
             type="text"
-            className='border border-zinc-800 shadow-sm rounded h-10 px-3 bg-zinc-900 text-white'
+            className={Styles.inputDarkStyles()}
             {...register('rz_social')} />
             {errors.rz_social && <span>{errors.rz_social.message}</span>}
         </div>
 
-        <div className='flex flex-col gap-1'>
+        <div className={Styles.divDarkStyles()}>
           <label htmlFor="">CNPJ</label>
           <input
             type="text"
             maxLength={14}
-            className='border border-zinc-800 shadow-sm rounded h-10 px-3 bg-zinc-900 text-white'
+            className={Styles.inputDarkStyles()}
             {...register('cnpj')}
             />
             {errors.cnpj && <span>{errors.cnpj.message}</span>}
         </div>
 
-        <div className='flex flex-col gap-1'>
+        <div className={Styles.divDarkStyles()}>
           <label htmlFor="">Inscrição Estadual</label>
           <input
             type="text"
-            className='border border-zinc-800 shadow-sm rounded h-10 px-3 bg-zinc-900 text-white'
+            className={Styles.inputDarkStyles()}
             {...register('ie')}/>
             {errors.ie && <span>{errors.ie.message}</span>}
         </div>
 
-        <div className='flex flex-col gap-1'>
+        <div className={Styles.divDarkStyles()}>
           <label htmlFor="">E-mail</label>
           <input
             type="email"
-            className='border border-zinc-800 shadow-sm rounded h-10 px-3 bg-zinc-900 text-white'
+            className={Styles.inputDarkStyles()}
             {...register('email')}/>
             {errors.email && <span>{errors.email.message}</span>}
           </div>
 
-        <div className='flex flex-col gap-1'>
+        <div className={Styles.divDarkStyles()}>
           <label htmlFor="">Contato</label>
           <input
             type="text"
-            className='border border-zinc-800 shadow-sm rounded h-10 px-3 bg-zinc-900 text-white'
+            className={Styles.inputDarkStyles()}
             {...register('contato')}/>
             {errors.contato && <span>{errors.contato.message}</span>}
           </div>
 
-        <div className='flex flex-col gap-1'>
+        <div className={Styles.divDarkStyles()}>
           <label htmlFor="" defaultValue="ativo">Status</label>
           <select
-            className='border border-zinc-800 shadow-sm rounded h-10 px-3 bg-zinc-900 text-white'
+            className={Styles.inputDarkStyles()}
             {...register('status')}>
             <option value="ativo">Ativo</option>
             <option value="inativo">Inativo</option>
           </select>
         </div>
 
+        <div>
+          <label htmlFor="">Endereço</label>
+          <input
+            type="text"
+            className={Styles.inputDarkStyles()}
+             />
+        </div>
+
         <button
-          className='bg-emerald-500 rounded font-semibold text-white h-10 hover:bg-emerald-600'
+          className={Styles.saveButtonStyle()}
           >Salvar</button>
       </form>
 
