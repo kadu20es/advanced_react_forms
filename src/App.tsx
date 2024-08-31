@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { PessoaJuridica } from './interfaces/pessoaJuridica';
 import './styles/global.css'
 
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form' // **1
+import { zodResolver } from '@hookform/resolvers/zod' // **1
 import { createUserFormSchema } from './utils/validacoes';
 import { Styles } from './styles/formStyles';
 
@@ -20,6 +20,11 @@ import { Styles } from './styles/formStyles';
 function App() {
   const [ output, setOutput ] = useState('');
 
+  /** 1
+   * Zod, zodResolver:
+   * bibliotecas que auxiliam na validação de dados de formulários
+   * Após fazer as validações, passa os dados para o useForm()
+   */
   const {
     register,
     handleSubmit,
@@ -40,7 +45,7 @@ function App() {
       <form onSubmit={handleSubmit(createPessoaJuridica)} className={Styles.formDarkStyle()}>
 
         <div className={Styles.divDarkStyles()}>
-          <label htmlFor="">Nome fantasia</label>
+          <label htmlFor="nm_fantasia">Nome fantasia</label>
           <input
             type="text"
             className={Styles.inputDarkStyles()}
@@ -49,7 +54,7 @@ function App() {
         </div>
 
         <div className={Styles.divDarkStyles()}>
-          <label htmlFor="">Razão Social</label>
+          <label htmlFor="rz_social">Razão Social</label>
           <input
             type="text"
             className={Styles.inputDarkStyles()}
@@ -58,7 +63,7 @@ function App() {
         </div>
 
         <div className={Styles.divDarkStyles()}>
-          <label htmlFor="">CNPJ</label>
+          <label htmlFor="cnpj">CNPJ</label>
           <input
             type="text"
             maxLength={14}
@@ -69,7 +74,7 @@ function App() {
         </div>
 
         <div className={Styles.divDarkStyles()}>
-          <label htmlFor="">Inscrição Estadual</label>
+          <label htmlFor="ie">Inscrição Estadual</label>
           <input
             type="text"
             className={Styles.inputDarkStyles()}
@@ -78,7 +83,7 @@ function App() {
         </div>
 
         <div className={Styles.divDarkStyles()}>
-          <label htmlFor="">E-mail</label>
+          <label htmlFor="email">E-mail</label>
           <input
             type="email"
             className={Styles.inputDarkStyles()}
@@ -87,7 +92,7 @@ function App() {
           </div>
 
         <div className={Styles.divDarkStyles()}>
-          <label htmlFor="">Contato</label>
+          <label htmlFor="contato">Contato</label>
           <input
             type="text"
             className={Styles.inputDarkStyles()}
@@ -96,7 +101,7 @@ function App() {
           </div>
 
         <div className={Styles.divDarkStyles()}>
-          <label htmlFor="" defaultValue="ativo">Status</label>
+          <label htmlFor="status" defaultValue="ativo">Status</label>
           <select
             className={Styles.inputDarkStyles()}
             {...register('status')}>
