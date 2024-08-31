@@ -1,4 +1,4 @@
-export interface PessoaJuridica {
+export interface PessoaJuridicaInterface {
     nm_fantasia: string;
     rz_social: string;
     cnpj: string;

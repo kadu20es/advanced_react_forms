@@ -21,6 +21,8 @@ export const createUserFormSchema = z.object({
 
   contato: z.string(),
 
+  status: z.enum(['ativo', 'inativo']),
+
   // utilizado com o FieldArrays
   dependente: z.array(z.object({
     nome: z
