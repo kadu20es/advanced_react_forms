@@ -19,6 +19,16 @@ export const createUserFormSchema = z.object({
     .email("Formato de e-mail inválido")
     .toLowerCase(), // em caso de erro
 
-  contato: z.string()
+  contato: z.string(),
+
+  // utilizado com o FieldArrays
+  dependente: z.array(z.object({
+    nome: z
+      .string()
+      .min(10, 'O nome é obrigatório.'),
+
+    data_nasc: z
+      .date()
+  }))
 
 })

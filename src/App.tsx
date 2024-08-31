@@ -2,16 +2,17 @@ import { useState } from 'react';
 import { PessoaJuridica } from './interfaces/pessoaJuridica';
 import './styles/global.css'
 
-import { useForm } from 'react-hook-form' // **1
+import { useForm, useFieldArray } from 'react-hook-form' // **1
 import { zodResolver } from '@hookform/resolvers/zod' // **1
+import { z } from 'zod'
 import { createUserFormSchema } from './utils/validacoes';
 import { Styles } from './styles/formStyles';
 
 /**
  * TODO
  *
- * [ ] Validação / transformação
- * [ ] Field arrays
+ * [x] Validação / transformação
+ * [ ] Field arrays - permite ao usuário adicionar ou remover campos do formulário
  * [ ] upload de arquivos
  * [ ] composition pattern
  */
@@ -19,6 +20,7 @@ import { Styles } from './styles/formStyles';
 
 function App() {
   const [ output, setOutput ] = useState('');
+  type CreateUserFormData = z.infer<typeof createUserFormSchema>
 
   /** 1
    * Zod, zodResolver:
@@ -28,15 +30,23 @@ function App() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
-  } = useForm<PessoaJuridica>({
+    formState: { errors },
+    control // adicionado para uso com useFieldArray. Pode ser removido se não for utilizado.
+  } = useForm<CreateUserFormData>({
     // registra os input
      resolver: zodResolver(createUserFormSchema),
   })
 
+  // eslint-disable-next-line no-empty-pattern
+  const {} = useFieldArray({
+    control,
+    name: 'dependente', // uma vez que foi definido o control acima, este campo aqui precisa ser inserido no schema.
+  })
+
   console.log(errors)
 
-  function createPessoaJuridica(data: PessoaJuridica) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function createPessoaJuridica(data: any) {
     setOutput(JSON.stringify(data, null, 2));
   }
 

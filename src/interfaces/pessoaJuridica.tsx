@@ -5,5 +5,5 @@ export interface PessoaJuridica {
     ie: string;
     email: string;
     contato: string;
-    status: string
+    status: string;
 }
